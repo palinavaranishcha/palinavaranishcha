@@ -1,7 +1,108 @@
-my-website/
-├── index.html
-├── style.css
-├── script.js
-└── images/
-    └── photo.jpg
-  
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Мой сайт</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <nav>
+            <a href="#about">Обо мне</a>
+            <a href="#projects">Мои проекты</a>
+            <a href="#contact">Контакты</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <section class="hero">
+            <div class="hero-text">
+                <p class="hello">Привет! 👋</p>
+
+                <h1>Я — ТВОЁ ИМЯ</h1>
+
+                <p class="description">
+                    Добро пожаловать на мой сайт!
+                    Здесь я рассказываю о себе, своих интересах
+                    и проектах.
+                </p>
+
+                <a class="button" href="#about">
+                    Узнать обо мне
+                </a>
+            </div>
+
+            <div class="photo">
+                <img src="images/photo.jpg" alt="Моя фотография">
+            </div>
+        </section>
+
+
+        <section id="about" class="section">
+            <h2>ABOUT MEе</h2>
+
+            <p>
+                Здесь напиши немного о себе.
+                Например, чем ты занимаешься, что тебе нравится
+                и чему ты сейчас учишься.
+            </p>
+        </section>
+
+
+        <section id="projects" class="section">
+            <h2>MY ARTWORKS</h2>
+
+            <div class="cards">
+
+                <div class="card">
+                    <h3>Проект №1</h3>
+                    <p>
+                        Краткое описание моего первого проекта.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Проект №2</h3>
+                    <p>
+                        Краткое описание моего второго проекта.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Проект №3</h3>
+                    <p>
+                        Краткое описание моего третьего проекта.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+
+        <section id="contact" class="section contact">
+            <h2>Contact</h2>
+
+            <p>
+                FOLLOW ME HERE
+            </p>
+
+            <a href="https://palinavaranishcha.github.io/" target="_blank">
+                GitHub
+            </a>
+        </section>
+
+    </main>
+
+
+    <footer>
+        <p>© 2026 Palina </p>
+    </footer>
+
+</body>
+</html>
