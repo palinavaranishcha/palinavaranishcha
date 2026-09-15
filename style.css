@@ -1,596 +1,544 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Playfair+Display:wght@400;500&display=swap');
-
-
-:root {
-    --background: #f4f1eb;
-    --text: #171717;
-    --muted: #77736c;
-    --line: #d8d3ca;
-    --white: #ffffff;
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Playfair+Display:wght@400;500&display=swap');
+{
+box-sizing: border-box;
 }
-
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-
 html {
-    scroll-behavior: smooth;
+scroll-behavior: smooth;
 }
-
-
 body {
-    background: var(--background);
-    color: var(--text);
+margin: 0;
+padding: 0;
 
-    font-family: "DM Sans", sans-serif;
+background: #f8f7f4;
+color: #222;
 
-    font-weight: 300;
+font-family: 'DM Sans', sans-serif;
+font-weight: 300;
 
-    line-height: 1.5;
+-webkit-font-smoothing: antialiased;
 }
-
-
 a {
-    color: inherit;
-    text-decoration: none;
+color: inherit;
+text-decoration: none;
 }
 
+.container {
+width: 90%;
+max-width: 1200px;
+margin: 0 auto;
+}
 
 /* HEADER */
 
-.header {
-    height: 90px;
+.site-header {
+padding: 55px 0 40px;
+}
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.header-inner {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
 
-    padding: 0 5vw;
+.logo {
+font-size: 22px;
+font-weight: 500;
+letter-spacing: -0.5px;
+}
 
-    border-bottom: 1px solid var(--line);
+.navigation {
+display: flex;
+gap: 35px;
+}
 
-    position: sticky;
-    top: 0;
+.navigation a {
+position: relative;
 
-    background: rgba(244, 241, 235, 0.92);
+font-size: 13px;
+text-transform: uppercase;
+letter-spacing: 1.5px;
 
-    backdrop-filter: blur(10px);
+color: #777;
 
-    z-index: 100;
+transition: color .3s ease;
+}
+.navigation a:hover,
+.navigation a.active {
+color: #111;
+}
+
+/* INTRO */
+
+.intro {
+width: 60%;
+padding: 100px 0 110px;
+}
+
+.eyebrow {
+margin-bottom: 20px;
+
+color: #777;
+
+font-size: 12px;
+text-transform: uppercase;
+letter-spacing: 3px;
+}
+.intro h1,
+.about-title h1,
+.contact-intro h1,
+.work-header h1 {
+margin: 0;
+
+font-family: 'Playfair Display', serif;
+
+font-size: clamp(50px, 7vw, 90px);
+font-weight: 400;
+
+line-height: .95;
+}
+.intro h1 span,
+.about-title h1 span,
+.contact-intro h1 span {
+display: block;
+
+color: #8d7564;
+}
+.intro-text {
+max-width: 500px;
+
+margin-top: 35px;
+
+font-size: 18px;
+line-height: 1.7;
+
+color: #555;
+}
+/* PAINTINGS */
+
+.paintings-grid {
+display: grid;
+
+grid-template-columns: repeat(2, 1fr);
+
+gap: 60px 35px;
+
+padding-bottom: 120px;
+}
+.painting-card {
+display: block;
+}
+
+.painting-placeholder {
+position: relative;
+
+width: 100%;
+aspect-ratio: 4 / 5;
+
+display: flex;
+justify-content: center;
+align-items: center;
+
+background: #e4e0da;
+
+color: #888;
+
+overflow: hidden;
+
+transition:
+    transform .5s ease,
+    background .5s ease;
+}
+.painting-placeholder span {
+font-size: 13px;
+
+text-transform: uppercase;
+letter-spacing: 2px;
+}
+.painting-card:hover .painting-placeholder {
+background: #d8d0c7;
+transform: scale(.985);
+}
+
+.painting-info {
+display: flex;
+justify-content: space-between;
+
+padding-top: 18px;
+}
+.painting-info h2 {
+margin: 0;
+
+font-size: 15px;
+font-weight: 400;
+}
+.painting-info p {
+margin: 0;
+
+color: #888;
+
+font-size: 13px;
+}
+/* ABOUT */
+
+.about-page {
+padding-bottom: 120px;
+}
+
+.about-intro {
+display: grid;
+
+grid-template-columns: 1fr 1fr;
+
+gap: 80px;
+
+padding: 100px 0 80px;
+}
+.about-text {
+padding-top: 25px;
+}
+
+.about-text p {
+max-width: 500px;
+
+margin: 0 0 25px;
+
+font-size: 18px;
+line-height: 1.8;
+
+color: #555;
+}
+.artist-photo {
+width: 60%;
+margin-left: auto;
+}
+
+.photo-placeholder {
+aspect-ratio: 3 / 4;
+
+display: flex;
+justify-content: center;
+align-items: center;
+
+background: #e4e0da;
+
+color: #888;
+
+text-transform: uppercase;
+letter-spacing: 2px;
+font-size: 12px;
+}
+/* CONTACT */
+
+.contact-page {
+padding-bottom: 150px;
+}
+
+.contact-intro {
+width: 65%;
+
+padding: 100px 0 80px;
+}
+.contact-intro > p:last-child {
+max-width: 500px;
+
+margin-top: 40px;
+
+font-size: 18px;
+line-height: 1.8;
+
+color: #555;
+}
+.contact-links {
+border-top: 1px solid #ccc;
+}
+
+.contact-link {
+display: flex;
+justify-content: space-between;
+align-items: center;
+
+padding: 35px 0;
+
+border-bottom: 1px solid #ccc;
+
+transition: padding .3s ease;
+}
+.contact-link:hover {
+padding-left: 15px;
+padding-right: 15px;
+}
+
+.contact-label {
+font-size: 12px;
+
+text-transform: uppercase;
+letter-spacing: 2px;
+
+color: #888;
+}
+.contact-value {
+font-family: 'Playfair Display', serif;
+
+font-size: 28px;
+}
+/* WORK DETAILS */
+
+.work-page {
+padding-bottom: 120px;
+}
+
+.work-header {
+display: grid;
+
+grid-template-columns: 1fr 1fr;
+
+gap: 80px;
+
+padding: 100px 0 80px;
+}
+.work-description {
+padding-top: 20px;
+}
+
+.work-description > p {
+max-width: 500px;
+
+font-size: 17px;
+line-height: 1.8;
+
+color: #555;
+}
+.work-details {
+display: flex;
+
+gap: 50px;
+
+margin-top: 45px;
+}
+.work-details p {
+font-size: 13px;
+
+line-height: 1.6;
+
+color: #777;
+}
+.work-details strong {
+color: #222;
+
+font-weight: 500;
+
+text-transform: uppercase;
+
+letter-spacing: 1px;
+}
+.work-image {
+width: 100%;
+}
+
+.large-placeholder {
+width: 100%;
+min-height: 650px;
+
+display: flex;
+justify-content: center;
+align-items: center;
+
+background: #e4e0da;
+
+color: #888;
+
+text-transform: uppercase;
+letter-spacing: 2px;
+font-size: 12px;
+}
+.back-link {
+display: inline-block;
+
+margin-top: 35px;
+
+color: #777;
+
+font-size: 13px;
+
+text-transform: uppercase;
+letter-spacing: 1.5px;
+
+transition: color .3s ease;
+}
+.back-link:hover {
+color: #111;
+}
+
+/* FOOTER */
+
+.site-footer {
+padding: 80px 0 60px;
+
+border-top: 1px solid #ddd;
+
+text-align: center;
+}
+.footer-logo {
+margin-bottom: 30px;
+
+font-size: 22px;
+font-weight: 500;
+}
+.site-footer nav {
+display: flex;
+justify-content: center;
+
+gap: 30px;
+
+margin-bottom: 35px;
+}
+.site-footer nav a {
+color: #888;
+
+font-size: 12px;
+
+text-transform: uppercase;
+letter-spacing: 1.5px;
+}
+.site-footer nav a:hover {
+color: #111;
+}
+
+.social {
+display: flex;
+justify-content: center;
+
+gap: 25px;
+
+margin-bottom: 35px;
+}
+.social a {
+font-size: 13px;
+
+color: #777;
+}
+.social a:hover {
+color: #111;
+}
+
+.copyright {
+margin: 0;
+
+color: #aaa;
+
+font-size: 11px;
+
+letter-spacing: .5px;
+}
+/* MOBILE */
+
+@media (max-width: 767px) {
+
+.site-header {
+    padding: 30px 0;
+}
+
+
+.header-inner {
+    display: block;
 }
 
 
 .logo {
-    font-size: 20px;
-
-    font-weight: 500;
-
-    letter-spacing: -0.5px;
-}
-
-
-nav {
-    display: flex;
-
-    gap: 35px;
-
-    font-size: 13px;
-
-    text-transform: uppercase;
-
-    letter-spacing: 1px;
-}
-
-
-nav a {
-    transition: opacity 0.3s;
-}
-
-
-nav a:hover {
-    opacity: 0.45;
-}
-
-
-/* HERO */
-
-.hero {
-    min-height: 75vh;
-
-    padding: 12vh 5vw 10vh;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-}
-
-
-.eyebrow {
-    color: var(--muted);
-
-    font-size: 11px;
-
-    letter-spacing: 2px;
-
-    margin-bottom: 30px;
-}
-
-
-.hero h1 {
-    font-family: "Playfair Display", serif;
-
-    font-size: clamp(65px, 11vw, 170px);
-
-    font-weight: 400;
-
-    line-height: 0.87;
-
-    letter-spacing: -5px;
-}
-
-
-.hero-description {
-    max-width: 500px;
-
-    margin-top: 50px;
-
-    color: var(--muted);
-
-    font-size: 17px;
-
-    line-height: 1.7;
-}
-
-
-/* GALLERY */
-
-.gallery-section {
-    padding: 0 5vw 12vh;
-}
-
-
-.section-heading {
-    display: flex;
-
-    justify-content: space-between;
-
-    border-top: 1px solid var(--line);
-
-    padding: 20px 0 30px;
-
-    color: var(--muted);
-
-    font-size: 11px;
-
-    letter-spacing: 1.5px;
-}
-
-
-.gallery {
-    display: grid;
-
-    grid-template-columns: repeat(2, 1fr);
-
-    gap: 7vw 3vw;
-}
-
-
-.painting {
     display: block;
 
-    position: relative;
-
-    overflow: hidden;
+    margin-bottom: 25px;
 }
 
 
-.painting img {
+.navigation {
+    gap: 20px;
+}
+
+
+.navigation a {
+    font-size: 11px;
+}
+
+
+.intro {
     width: 100%;
 
-    height: 520px;
-
-    object-fit: cover;
-
-    display: block;
-
-    transition:
-        transform 0.8s cubic-bezier(.2,.7,.2,1),
-        filter 0.5s;
+    padding: 60px 0 70px;
 }
 
 
-.painting-large img {
-    height: 680px;
+.intro-text {
+    font-size: 16px;
 }
 
 
-.painting-wide {
-    grid-column: span 2;
+.paintings-grid {
+    grid-template-columns: 1fr;
+
+    gap: 45px;
+
+    padding-bottom: 80px;
 }
 
 
-.painting-wide img {
-    height: 650px;
+.about-intro,
+.work-header {
+    grid-template-columns: 1fr;
+
+    gap: 30px;
+
+    padding: 60px 0;
 }
 
 
-.painting:hover img {
-    transform: scale(1.025);
-
-    filter: brightness(0.92);
+.artist-photo {
+    width: 100%;
 }
 
 
-.painting-info {
-    display: flex;
-
-    justify-content: space-between;
-
-    padding: 15px 0;
-
-    border-bottom: 1px solid var(--line);
-}
-
-
-.painting-info h2 {
-    font-family: "Playfair Display", serif;
-
-    font-size: 20px;
-
-    font-weight: 400;
-}
-
-
-.painting-info p {
-    color: var(--muted);
-
-    font-size: 12px;
-}
-
-
-/* FOOTER */
-
-footer {
-    border-top: 1px solid var(--line);
-
-    margin: 0 5vw;
-
-    padding: 30px 0;
-
-    display: flex;
-
-    justify-content: space-between;
-
-    color: var(--muted);
-
-    font-size: 12px;
-}
-
-
-footer a {
-    color: var(--text);
-
-    transition: opacity 0.3s;
-}
-
-
-footer a:hover {
-    opacity: 0.5;
-}
-
-
-/* INNER PAGES */
-
-.page {
-    max-width: 1200px;
-
-    margin: auto;
-
-    padding: 100px 5vw;
-}
-
-
-.page-label {
-    color: var(--muted);
-
-    font-size: 11px;
-
-    letter-spacing: 2px;
-
-    margin-bottom: 35px;
-}
-
-
-.page-title {
-    font-family: "Playfair Display", serif;
-
-    font-size: clamp(55px, 8vw, 110px);
-
-    font-weight: 400;
-
-    line-height: 0.95;
-
-    margin-bottom: 70px;
-}
-
-
-.about-grid {
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    gap: 8vw;
-
-    align-items: start;
-}
-
-
-.about-photo {
+.contact-intro {
     width: 100%;
 
-    max-height: 700px;
-
-    object-fit: cover;
-}
-
-
-.about-text {
-    max-width: 550px;
-
-    font-size: 18px;
-
-    line-height: 1.8;
-
-    color: #555;
-}
-
-
-.about-text p {
-    margin-bottom: 30px;
-}
-
-
-/* CONTACT */
-
-.contact-list {
-    border-top: 1px solid var(--line);
-}
-
-
-.contact-item {
-    display: flex;
-
-    justify-content: space-between;
-
-    padding: 25px 0;
-
-    border-bottom: 1px solid var(--line);
-}
-
-
-.contact-label {
-    color: var(--muted);
-
-    font-size: 11px;
-
-    letter-spacing: 1.5px;
-
-    text-transform: uppercase;
+    padding: 60px 0;
 }
 
 
 .contact-value {
-    font-family: "Playfair Display", serif;
-
-    font-size: 25px;
+    font-size: 18px;
 }
 
 
-.contact-value:hover {
-    opacity: 0.5;
+.contact-link {
+    display: block;
 }
 
 
-/* PAINTING PAGE */
+.contact-label {
+    display: block;
 
-.artwork {
-    max-width: 1400px;
-
-    margin: auto;
-
-    padding: 80px 5vw;
+    margin-bottom: 10px;
 }
 
 
-.artwork-image {
-    width: 100%;
+.work-details {
+    flex-wrap: wrap;
 
-    max-height: 850px;
-
-    object-fit: contain;
-
-    background: #ebe7df;
+    gap: 20px;
 }
 
 
-.artwork-details {
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    gap: 8vw;
-
-    margin-top: 60px;
-
-    border-top: 1px solid var(--line);
-
-    padding-top: 35px;
+.large-placeholder {
+    min-height: 450px;
 }
 
 
-.artwork-title {
-    font-family: "Playfair Display", serif;
-
-    font-size: clamp(40px, 6vw, 80px);
-
-    font-weight: 400;
+.site-footer {
+    padding: 60px 0 40px;
 }
 
 
-.artwork-info {
-    color: #666;
-
-    line-height: 2;
-
-    max-width: 500px;
+.site-footer nav {
+    gap: 18px;
 }
-
-
-.back {
-    display: inline-block;
-
-    margin-top: 50px;
-
-    font-size: 12px;
-
-    text-transform: uppercase;
-
-    letter-spacing: 1.5px;
-}
-
-
-.back:hover {
-    opacity: 0.5;
-}
-
-
-/* MOBILE */
-
-@media (max-width: 700px) {
-
-    .header {
-        height: 75px;
-
-        padding: 0 20px;
-    }
-
-
-    nav {
-        gap: 15px;
-
-        font-size: 10px;
-    }
-
-
-    .hero {
-        padding: 100px 20px;
-
-        min-height: 80vh;
-    }
-
-
-    .hero h1 {
-        font-size: 58px;
-
-        letter-spacing: -2px;
-    }
-
-
-    .hero-description {
-        margin-top: 35px;
-
-        font-size: 15px;
-    }
-
-
-    .gallery-section {
-        padding: 0 20px 80px;
-    }
-
-
-    .gallery {
-        grid-template-columns: 1fr;
-
-        gap: 55px;
-    }
-
-
-    .painting-wide {
-        grid-column: span 1;
-    }
-
-
-    .painting img,
-    .painting-large img,
-    .painting-wide img {
-        height: 450px;
-    }
-
-
-    .painting-info h2 {
-        font-size: 18px;
-    }
-
-
-    footer {
-        margin: 0 20px;
-
-        padding: 25px 0;
-    }
-
-
-    .page {
-        padding: 70px 20px;
-    }
-
-
-    .page-title {
-        font-size: 58px;
-
-        margin-bottom: 50px;
-    }
-
-
-    .about-grid {
-        grid-template-columns: 1fr;
-
-        gap: 50px;
-    }
-
-
-    .about-text {
-        font-size: 16px;
-    }
-
-
-    .contact-item {
-        flex-direction: column;
-
-        gap: 10px;
-    }
-
-
-    .contact-value {
-        font-size: 21px;
-    }
-
-
-    .artwork {
-        padding: 50px 20px;
-    }
-
-
-    .artwork-details {
-        grid-template-columns: 1fr;
-
-        gap: 30px;
-
-        margin-top: 40px;
-    }
 }
