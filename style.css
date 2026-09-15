@@ -542,3 +542,8 @@ letter-spacing: .5px;
     gap: 18px;
 }
 }
+.logo img {
+    height: 42px;
+    width: auto;
+    display: block;
+}
