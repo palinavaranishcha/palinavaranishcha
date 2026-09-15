@@ -1,3 +1,4 @@
+```css
 /* =========================================
    PALINA VARANISHCHA — ARTIST PORTFOLIO
    ========================================= */
@@ -54,11 +55,22 @@ a {
     justify-content: space-between;
 }
 
+
+/* ---------- Logo ---------- */
+
 .logo {
-    font-size: 20px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
+    display: block;
+    line-height: 0;
 }
+
+.logo img {
+    display: block;
+    width: 120px;
+    height: auto;
+}
+
+
+/* ---------- Navigation ---------- */
 
 .main-navigation {
     display: flex;
@@ -354,12 +366,6 @@ a {
     font-size: 12px;
     color: #999999;
 }
-}
-.logo img {
-    height: 42px;
-    width: auto;
-    display: block;
-}
 
 
 /* ---------- Responsive ---------- */
@@ -403,6 +409,8 @@ a {
 }
 
 
+/* ---------- Mobile ---------- */
+
 @media (max-width: 600px) {
 
     .container {
@@ -418,9 +426,13 @@ a {
         gap: 20px;
     }
 
-    .logo {
-        font-size: 17px;
+    /* Mobile logo */
+
+    .logo img {
+        width: 95px;
     }
+
+    /* Mobile navigation */
 
     .main-navigation {
         gap: 16px;
@@ -430,6 +442,8 @@ a {
         font-size: 12px;
     }
 
+    /* Mobile hero */
+
     .hero {
         padding: 80px 0 100px;
     }
@@ -438,6 +452,8 @@ a {
         margin-top: 35px;
         font-size: 16px;
     }
+
+    /* Mobile works */
 
     .works {
         padding: 70px 0 90px;
@@ -460,6 +476,8 @@ a {
         margin-top: 0;
     }
 
+    /* Mobile about */
+
     .about-preview,
     .contact-preview {
         padding: 90px 0;
@@ -481,6 +499,8 @@ a {
         font-size: 20px;
     }
 
+    /* Mobile footer */
+
     .site-footer .container {
         flex-direction: column;
         align-items: flex-start;
@@ -493,3 +513,6 @@ a {
     .copyright {
         order: 3;
     }
+
+}
+```
