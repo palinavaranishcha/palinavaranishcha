@@ -104,7 +104,7 @@ a {
 /* ---------- Hero ---------- */
 
 .hero {
-    padding: 140px 0 160px;
+    padding: 80px 0 90px;
 }
 
 .hero-label,
@@ -126,7 +126,7 @@ a {
 
 .hero-description {
     max-width: 550px;
-    margin: 55px 0 0;
+    margin: 35px 0 0;
     font-size: 18px;
     line-height: 1.7;
     color: #555555;
@@ -136,7 +136,7 @@ a {
 /* ---------- Works ---------- */
 
 .works {
-    padding: 80px 0 160px;
+    padding: 50px 0 120px;
 }
 
 .section-heading {
