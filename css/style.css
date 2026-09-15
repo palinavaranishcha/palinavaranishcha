@@ -489,3 +489,8 @@ a {
     }
 
 }
+.logo img {
+    height: 42px;
+    width: auto;
+    display: block;
+}
