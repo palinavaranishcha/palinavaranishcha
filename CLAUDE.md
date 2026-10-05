@@ -4,34 +4,45 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-A static HTML portfolio website for artist Palina Varanishcha, deployed automatically to GitHub Pages on every push to `main` via `.github/workflows/static.yml`. There is no build step — files are served as-is.
+A React + TypeScript portfolio website for artist Palina Varanishcha, deployed automatically to GitHub Pages on every push to `main` via `.github/workflows/static.yml`. Vite is the build tool — the workflow runs `npm run build` and deploys `dist/`.
 
-## Active pages and their structure
+## Stack
 
-Three live pages share an identical header/footer pattern and load the same two stylesheets and JS bundle:
+- React 18, TypeScript, Vite
+- React Router v6 with `HashRouter` (required for GitHub Pages — no server-side routing)
+- Plain CSS (imported globally in `src/main.tsx`)
 
-| Page | File |
-|------|------|
-| Work (home) | `index.html` |
-| About | `about.html` |
-| Contact | `contact.html` |
+## Active pages and routes
 
-Each page sets `class="active"` on its own nav link to show the underline indicator.
+| Route | Component |
+|-------|-----------|
+| `/#/` | `src/pages/Work.tsx` |
+| `/#/about` | `src/pages/About.tsx` |
+| `/#/contact` | `src/pages/Contact.tsx` |
+
+Header and Footer are shared components in `src/components/`.
 
 ## CSS
 
 `css/style.css` is the one file to edit for all visual changes. It contains the full design system: base resets, layout, components, and responsive breakpoints (`@media (max-width: 900px)` and `@media (max-width: 600px)`).
 
-`css/responsive.css` is legacy from an old template — its selectors target old ARIA-role HTML that no longer exists in the site. Do not add to it; it can be removed in a future cleanup.
-
-## Known dead references
-
-Every HTML page loads `js/script.js`, which does not exist in the repository. This currently causes a silent 404 but no visible breakage.
+`css/responsive.css` is legacy from an old template — its selectors target old ARIA-role HTML that no longer exists. Do not add to it; it can be removed in a future cleanup.
 
 ## Paintings
 
-Artwork images live in `images/paintings/`. To add a painting to `index.html`, copy an existing `<article class="painting">` block and increment the two-digit number in `<span class="painting-number">`.
+Artwork images live in `public/images/paintings/`. To add a painting:
+1. Place the image in `public/images/paintings/`.
+2. Add an entry to the `paintings` array in `src/pages/Work.tsx`.
+3. Increment the two-digit number in the `number` field.
 
-## Legacy files
+## Development
 
-`blog.html`, `blog-details.html`, and `works-details.html` are leftover from an earlier template and are not linked anywhere in the current navigation. `js/custom.js`, `js/nav.js`, `js/maps.js`, `js/jquery.contact.js`, and `js/effects/` are also unused remnants.
+```bash
+npm install
+npm run dev
+npm run build
+```
+
+## HashRouter note
+
+The site uses `HashRouter` so that all routes work on GitHub Pages without a server. Links use React Router's `<Link>` and `<NavLink>` components — never bare `<a href="">` tags for internal navigation.
