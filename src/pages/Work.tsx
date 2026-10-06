@@ -28,7 +28,7 @@ export default function Work() {
           <div className="painting-grid">
             {paintings.map(painting => (
               <article key={painting.id} className="painting">
-                <a href={painting.src} target="_blank" rel="noreferrer">
+                <Link to={`/paintings/${painting.id}`}>
                   <div className="painting-image">
                     <img
                       src={painting.src}
@@ -36,12 +36,20 @@ export default function Work() {
                       loading="lazy"
                     />
                   </div>
-                </a>
+                </Link>
                 <div className="painting-info">
                   <span className="painting-number">{painting.number}</span>
                   <h3>{painting.title}</h3>
                   <p>Painting</p>
                 </div>
+                {painting.available && (
+                  <Link
+                    to={`/available?painting=${painting.id}`}
+                    className="text-link purchase-link"
+                  >
+                    Request to purchase →
+                  </Link>
+                )}
               </article>
             ))}
           </div>

@@ -367,6 +367,313 @@ a {
 }
 
 
+/* ---------- Contact Page ---------- */
+
+.contact-page {
+    padding: 100px 0 160px;
+}
+
+.contact-page h1 {
+    margin: 0 0 40px;
+    font-size: clamp(55px, 7vw, 100px);
+    line-height: 0.92;
+    font-weight: 400;
+    letter-spacing: -0.06em;
+}
+
+.contact-intro {
+    max-width: 550px;
+    margin-bottom: 60px;
+    font-size: 18px;
+    line-height: 1.7;
+    color: #555555;
+}
+
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.contact-item p {
+    margin: 0;
+}
+
+.contact-label {
+    margin-bottom: 8px !important;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #999999;
+}
+
+.contact-item a {
+    font-size: 17px;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.contact-item a:hover {
+    border-color: #111111;
+}
+
+.contact-social {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+/* ---------- Available / Purchase ---------- */
+
+.available-page {
+    padding: 100px 0 160px;
+}
+
+.available-page h1 {
+    margin: 0 0 30px;
+    font-size: clamp(48px, 6vw, 90px);
+    line-height: 1;
+    font-weight: 400;
+    letter-spacing: -0.05em;
+}
+
+.available-intro {
+    max-width: 550px;
+    margin-bottom: 55px;
+    font-size: 18px;
+    line-height: 1.7;
+    color: #555555;
+}
+
+.purchase-form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    max-width: 560px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-field label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #777777;
+}
+
+.form-field select,
+.form-field input,
+.form-field textarea {
+    width: 100%;
+    padding: 12px 0;
+    border: none;
+    border-bottom: 1px solid #cccccc;
+    background: transparent;
+    font-family: inherit;
+    font-size: 16px;
+    color: #111111;
+    outline: none;
+    transition: border-color 0.3s ease;
+    -webkit-appearance: none;
+    appearance: none;
+    border-radius: 0;
+}
+
+.form-field select {
+    cursor: pointer;
+}
+
+.form-field select:focus,
+.form-field input:focus,
+.form-field textarea:focus {
+    border-color: #111111;
+}
+
+.form-field textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.purchase-link {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 13px;
+    border-bottom-color: #cccccc;
+}
+
+
+/* ---------- Collections ---------- */
+
+.collections-page {
+    padding: 100px 0 160px;
+}
+
+.collections-page h1 {
+    margin: 0 0 70px;
+    font-size: clamp(48px, 6vw, 90px);
+    line-height: 1;
+    font-weight: 400;
+    letter-spacing: -0.05em;
+}
+
+.collection-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 60px 45px;
+}
+
+.collection-card a {
+    display: block;
+}
+
+.collection-image {
+    overflow: hidden;
+    background: #f4f4f4;
+}
+
+.collection-image img {
+    width: 100%;
+    transition: transform 0.6s ease;
+}
+
+.collection-image:hover img {
+    transform: scale(1.02);
+}
+
+.collection-info {
+    margin-top: 20px;
+}
+
+.collection-info h2 {
+    margin: 0 0 8px;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.collection-info p {
+    margin: 0;
+    font-size: 14px;
+    color: #777777;
+}
+
+.collection-description {
+    max-width: 600px;
+    margin-top: 20px;
+    margin-bottom: 60px;
+    font-size: 18px;
+    line-height: 1.7;
+    color: #555555;
+}
+
+.section-h1 {
+    margin: 0;
+    font-size: clamp(48px, 6vw, 90px);
+    line-height: 1;
+    font-weight: 400;
+    letter-spacing: -0.05em;
+}
+
+
+/* ---------- Painting Detail ---------- */
+
+.painting-detail {
+    padding: 80px 0 160px;
+}
+
+.painting-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 80px;
+    align-items: start;
+}
+
+.painting-detail-image img {
+    width: 100%;
+}
+
+.painting-detail-info {
+    padding-top: 10px;
+}
+
+.painting-detail-title {
+    margin: 10px 0 20px;
+    font-size: clamp(36px, 4vw, 56px);
+    line-height: 1;
+    font-weight: 400;
+    letter-spacing: -0.04em;
+}
+
+.painting-dimensions {
+    margin: 0 0 16px;
+    font-size: 15px;
+    color: #777777;
+}
+
+.painting-collection-link {
+    margin: 0 0 30px;
+}
+
+.painting-description {
+    margin: 0 0 40px;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #555555;
+}
+
+.painting-status {
+    margin: 0;
+    font-size: 14px;
+    color: #aaaaaa;
+}
+
+
+/* ---------- Photo Carousel ---------- */
+
+.photo-carousel {
+    position: relative;
+    overflow: hidden;
+    background: #f4f4f4;
+}
+
+.photo-carousel-track {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.photo-carousel-track img {
+    width: 100%;
+    flex-shrink: 0;
+}
+
+.carousel-controls {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    display: flex;
+    gap: 6px;
+}
+
+.carousel-btn {
+    padding: 8px 14px;
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid #dddddd;
+    font-family: inherit;
+    font-size: 15px;
+    cursor: pointer;
+    line-height: 1;
+    transition: background 0.2s ease;
+}
+
+.carousel-btn:hover {
+    background: #ffffff;
+}
+
+
 /* ---------- Responsive ---------- */
 
 @media (max-width: 900px) {
@@ -403,6 +710,19 @@ a {
 
     .works {
         padding-bottom: 110px;
+    }
+
+    .collection-grid {
+        gap: 40px 25px;
+    }
+
+    .painting-detail-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    .painting-detail-info {
+        padding-top: 0;
     }
 
 }
@@ -507,10 +827,40 @@ a {
 
     .footer-navigation {
         order: 2;
+        flex-wrap: wrap;
     }
 
     .copyright {
         order: 3;
+    }
+
+    /* Mobile contact page */
+
+    .contact-page {
+        padding: 70px 0 100px;
+    }
+
+    /* Mobile available */
+
+    .available-page {
+        padding: 70px 0 100px;
+    }
+
+    /* Mobile collections */
+
+    .collections-page {
+        padding: 70px 0 100px;
+    }
+
+    .collection-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+    }
+
+    /* Mobile painting detail */
+
+    .painting-detail {
+        padding: 60px 0 100px;
     }
 
 }

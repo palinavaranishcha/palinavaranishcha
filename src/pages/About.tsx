@@ -1,16 +1,48 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
+const photos = [
+  { src: '/images/paintings/myphoto.jpg', alt: 'Palina Varanishcha, contemporary artist' },
+  { src: '/images/paintings/myphoto(copy).jpg', alt: 'Palina Varanishcha in the studio' },
+]
+
 export default function About() {
+  const [index, setIndex] = useState(0)
+
   return (
     <main>
       <section className="about-page">
         <div className="container">
           <div className="about-page-grid">
             <div className="about-photo">
-              <img
-                src="/images/paintings/myphoto.jpg"
-                alt="Palina Varanishcha, contemporary artist"
-              />
+              <div className="photo-carousel">
+                <div
+                  className="photo-carousel-track"
+                  style={{ transform: `translateX(-${index * 100}%)` }}
+                >
+                  {photos.map((photo, i) => (
+                    <img key={i} src={photo.src} alt={photo.alt} />
+                  ))}
+                </div>
+                {photos.length > 1 && (
+                  <div className="carousel-controls">
+                    <button
+                      className="carousel-btn"
+                      onClick={() => setIndex(i => (i - 1 + photos.length) % photos.length)}
+                      aria-label="Previous photo"
+                    >
+                      ←
+                    </button>
+                    <button
+                      className="carousel-btn"
+                      onClick={() => setIndex(i => (i + 1) % photos.length)}
+                      aria-label="Next photo"
+                    >
+                      →
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="about-text">
