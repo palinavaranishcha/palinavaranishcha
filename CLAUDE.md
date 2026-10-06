@@ -32,8 +32,10 @@ Header and Footer are shared components in `src/components/`.
 
 Artwork images live in `public/images/paintings/`. To add a painting:
 1. Place the image in `public/images/paintings/`.
-2. Add an entry to the `paintings` array in `src/pages/Work.tsx`.
+2. Add an entry to the `paintings` array in `src/data/paintings.ts`.
 3. Increment the two-digit number in the `number` field.
+
+Collection metadata lives in `src/data/collections.ts`. Each painting's `collection` field holds the slug of its collection.
 
 ## Development
 

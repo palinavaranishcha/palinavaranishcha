@@ -1,21 +1,5 @@
 import { Link } from 'react-router-dom'
-
-interface Painting {
-  id: number
-  number: string
-  title: string
-  src: string
-}
-
-const paintings: Painting[] = [
-  { id: 1, number: '01', title: 'Untitled I',   src: '/images/paintings/painting-1.jpg' },
-  { id: 2, number: '02', title: 'Untitled II',  src: '/images/paintings/painting-2.jpg' },
-  { id: 3, number: '03', title: 'Untitled III', src: '/images/paintings/painting-3.jpg' },
-  { id: 4, number: '04', title: 'Untitled IV',  src: '/images/paintings/painting-4.jpg' },
-  { id: 5, number: '05', title: 'Untitled V',   src: '/images/paintings/painting-5.jpg' },
-  { id: 6, number: '06', title: 'Untitled VI',  src: '/images/paintings/painting-6.jpg' },
-  { id: 7, number: '07', title: 'Untitled VII', src: '/images/paintings/painting-7.jpg' },
-]
+import { paintings } from '../data/paintings'
 
 export default function Work() {
   return (

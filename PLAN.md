@@ -1,102 +1,60 @@
-# Plan: Artist portfolio rebuild (Collections, Available, About carousel, editable content)
+# Plan: Artist portfolio — React implementation
 
-## Context
+## Current state (as of 2026-10-06)
 
-The site is currently 3 hand-written static HTML pages (`index.html`, `about.html`, `contact.html`) with a hard-coded grid of 7 paintings. The new spec adds a left-sidebar layout, Collections with their own pages, per-painting pages, an "Available" page with a purchase-request form, an About carousel, and a new Contact page. It must also let the artist **add and edit paintings, photos, collections, sizes, availability and bio text without touching code**.
+The site was rebuilt from static HTML into **React 18 + TypeScript + Vite**, deployed to GitHub Pages via `.github/workflows/static.yml` which runs `npm run build` and deploys `dist/`.
 
-Decisions made:
-- **Content editing:** Jekyll (built into GitHub Pages) with **Pages CMS** (pagescms.org) as the editing UI. Content is stored as YAML/Markdown files in the repo, with no server and no cost.
-- **Purchase form:** a **mailto** form. JS builds a pre-filled email and opens the visitor's mail app, so no third-party service is involved.
-- **Email:** `palinavaranishcha@gmail.com` (replaces `palinavarani@gmail.com`).
-- **Instagram:** a placeholder in the settings file, to be filled in later.
+### What exists
 
-Hosting fact: the remote is `github.com/palinavaranishcha/palinavaranishcha` with no CNAME, so the site is served at `/palinavaranishcha/`. Set `baseurl: /palinavaranishcha` and build **every** link and asset path with `{{ '...' | relative_url }}`.
+| Route | Component | Status |
+|-------|-----------|--------|
+| `/#/` | `src/pages/Work.tsx` | Done — hero, 7-painting grid, about preview, contact preview |
+| `/#/about` | `src/pages/About.tsx` | Done — photo + text two-column grid, contact preview |
+| `/#/contact` | `src/pages/Contact.tsx` | Done — email link |
 
-## Content model (what the artist edits)
+Shared: `src/components/Header.tsx` (top nav: Work / About / Contact), `src/components/Footer.tsx`.
 
-| Content | Location | Fields |
-|---|---|---|
-| Painting | `_paintings/<slug>.md` | `title`, `series` (collection slug), `size` (e.g. "60 × 80 cm"), `available` (bool), `images` (list; the first one is the cover), `order`, body = description |
-| Collection | `_series/<slug>.md` | `title`, `cover`, `order`, body = description |
-| Site settings | `_data/settings.yml` | `artist_name`, `tagline`, `hero_image`, `email`, `instagram_url` |
-| About | `about.md` (front matter + body) | `photo`, `gallery` (image list), body = bio |
+Routing uses `HashRouter` (required for GitHub Pages). All internal navigation uses React Router `<Link>` / `<NavLink>`.
 
-The Jekyll collection is named `series` internally because `collections` is a reserved Jekyll config key. The UI still says "Collections" and the URLs are `/collections/<slug>/`.
+Painting data lives in `src/data/paintings.ts` (`Painting` interface + `paintings` array). Collection data lives in `src/data/collections.ts` (`Collection` interface + `collections` array). Images live in `public/images/paintings/`.
 
-`_config.yml`:
-- fix the existing `heme:` typo by removing the theme line, since the site uses custom layouts
-- set `baseurl`
-- define `series` (`output: true`, `permalink: /collections/:name/`) and `paintings` (`permalink: /paintings/:name/`)
-- `exclude:` README.md, CLAUDE.md, PLAN.md, Gemfile*, .idea
+The `Painting` type has: `id`, `number`, `title`, `src`, `collection` (slug), `available`, `dimensions`, `description`, `price`. All 7 paintings are assigned to collection `'first-collection'`.
 
-## Templates
+---
 
-- `_layouts/default.html`: `<head>`, sidebar, `<main>{{ content }}</main>`, `js/main.js`.
-- `_includes/sidebar.html`: logo (links home) plus Collections / Available / About / Contact. The active link is chosen by comparing against `page.url`.
-  - Desktop (≥900px): fixed left sidebar.
-  - Mobile: top bar with a hamburger `<button aria-expanded>` that toggles the menu.
-- `_includes/painting-card.html`: image, then title / size / availability. One partial, reused on the collection pages and the Available page so captions stay identical.
-- `_layouts/series.html`: collection title, description, then a grid of `site.paintings | where: "series", page.slug | sort: "order"`.
-- `_layouts/painting.html`: large first image, the other images below it, title, size, collection link, description, and an availability badge. If available, a "Request to purchase" link to `available/?painting=<slug>#request`.
+## Outstanding work
 
-## Pages
+### 1. Add Instagram link to Contact
+Contact page has no social link yet. Add an Instagram URL (artist to supply) with an inline SVG icon, `target="_blank" rel="noopener"`.
 
-1. **`index.html` (Main):** large hero image, artist name, tagline (all from settings), and a button to `collections/`.
-2. **`collections/index.html`:** a grid of clickable cards (cover, title) from `site.series | sort: "order"`.
-3. **`available.html`:** cards for `site.paintings | where: "available", true`, followed by the `#request` form:
-   - `<input type="email" required>` and a `<select required>` of available titles, generated by Liquid
-   - On submit, JS builds `mailto:<settings.email>?subject=...&body=...` with `encodeURIComponent` and sets `location.href`
-   - The `?painting=` query preselects the dropdown
-   - A short note tells visitors that their mail app will open
-4. **`about.md`:**
-   - large name at the top
-   - 2-column grid with text on the left and the photo on the right; the rest of the text continues below
-   - carousel at the bottom: a CSS `scroll-snap` track with `scroll-behavior: smooth`, plus prev/next `<button aria-label>`s that call `scrollBy` by one slide width
-   - shows 1 slide on mobile and 3 on desktop; touch swipe comes free
-5. **`contact.html`:** "Contact me" heading, the text from the spec, a visible clickable `mailto:` email, and an Instagram link (inline SVG icon, `target="_blank" rel="noopener"`).
+### 2. Available / purchase page
+A new `/#/available` route showing paintings marked `available: true`, with a mailto form:
+- `<select>` of available painting titles, pre-selectable via `?painting=<id>` query param
+- On submit, JS builds `mailto:palinavaranishcha@gmail.com?subject=...&body=...` with `encodeURIComponent` and navigates with `window.location.href`
+- A short note tells visitors their mail app will open
 
-`js/main.js` (vanilla JS, no jQuery) handles three things: the mobile menu toggle, the carousel arrows, and the mailto form builder.
+### 5. Collections
+If the artist wants to group paintings by series:
+- Add a `collection` field to the `Painting` interface in `Work.tsx`
+- New route `/#/collections` — grid of collection cards
+- New route `/#/collections/:slug` — paintings filtered by that collection
+- "Request to purchase" link on painting cards if `available: true`, pointing to `/#/available?painting=<id>`
 
-## Styling
+### 6. Individual painting pages (optional)
+Route `/#/paintings/:id` — large image, title, size, collection, description. Not yet needed if the current lightbox-style (clicking opens image in new tab) is acceptable.
 
-Rewrite `css/style.css`, keeping the current visual language (white background, Arial, light grays, large tight-tracked headings) and adapting it to the sidebar layout. Also delete the stray Markdown fence lines currently on line 1 and line 518 of `css/style.css`. Breakpoints stay at 900px and 600px. The painting grid is 3 columns on desktop, 2 on tablet and 1 on mobile.
+### 7. About carousel
+Currently the About page has a static two-column layout. If additional photos are provided, replace the right column with a CSS `scroll-snap` carousel and prev/next buttons.
 
-## Pages CMS
+### 8. Logo image
+`Header.tsx` references `/images/paintings/logo.jpg`. Confirm this file exists and looks correct; replace with a text logo if not.
 
-Add `.pages.yml` at the repo root:
-- `media`: `images/` folder
-- `content` entries: `paintings` (collection → `_paintings`), `collections` (→ `_series`), `settings` (file → `_data/settings.yml`), `about` (file → `about.md`)
-- field types: string, rich-text, boolean, image (list), number
+---
 
-The painting's `series` field should be a reference or select of collections. It has not been confirmed that Pages CMS supports reference fields, so check its docs during implementation. If it doesn't, fall back to a plain string with a hint.
+## Decisions carried forward
 
-One-time setup for the artist: sign in at app.pagescms.org with GitHub and install the app on the repo. Saving a change commits it, and the commit triggers a deploy.
-
-## Deployment
-
-Edit `.github/workflows/static.yml`: add `actions/jekyll-build-pages@v1` (source `.`, destination `./_site`) before the upload step, and change the upload `path` to `_site`. Add a `Gemfile` with the `github-pages` gem for local preview. This is the official GitHub gem, but it is a new dependency and needs confirmation before it is added.
-
-## Migration & cleanup
-
-- Turn the 7 existing paintings into `_paintings/untitled-i.md` … `untitled-vii.md`:
-  - all go into one placeholder collection, `_series/selected-works.md`
-  - `available: false` and `size` left empty; the card hides empty fields
-- Rename image files that contain spaces or non-ASCII characters (`IMG_7847 Duży.jpeg` etc.), or leave them out until they are needed.
-- Delete leftover template files that nothing uses:
-  - pages: `blog.html`, `blog-details.html`, `works-details.html`, root `style.css`
-  - styles and fonts: `css/responsive.css`, `css/bootstrap.min.css`, `css/effects/`, `css/font-awesome.min.css`, `fonts/`
-  - scripts: `js/*` except the new `main.js`
-- Add `.idea/` to `.gitignore`.
-- Update `CLAUDE.md` to describe the Jekyll/Pages CMS structure.
-
-## Verification
-
-1. Run `bundle exec jekyll serve --baseurl /palinavaranishcha` locally if Ruby is available. Otherwise, push to a branch and check the Actions build log. **Do not push to `main` without explicit approval.**
-2. Use Playwright at 1440px and 375px wide to check:
-   - sidebar and hamburger, and the logo going back home
-   - home → Collections → collection page → painting page → "Request to purchase" → the Available page with that painting preselected
-   - that the form builds the correct `mailto:` href (inspect the URL instead of opening a mail client)
-   - carousel arrows and smooth transition
-   - mailto and Instagram links on Contact
-   - no 404s in the network log, and no horizontal scroll on mobile
-3. After deploying, add a test painting through Pages CMS and confirm that it appears on its collection page and, if available, on the Available page. Then remove it.
+- **No Jekyll / Pages CMS** — content editing requires a code change (update `src/data/paintings.ts` and add an image to `public/`). This is acceptable for now.
+- **No third-party form service** — purchase enquiries use `mailto:`.
+- **Breakpoints:** `@media (max-width: 900px)` and `@media (max-width: 600px)`.
+- **Painting grid:** 3 columns desktop, 2 tablet, 1 mobile.
+- **Do not push to `main` without explicit approval.**
