@@ -1,4 +1,4 @@
-﻿import { useEffect, useLayoutEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { paintings } from '../data/paintings'
 
@@ -106,14 +106,14 @@ export default function About() {
                 onClick={() => scroll(-1)}
                 aria-label="Previous paintings"
               >
-                â†
+                {'\u2190'}
               </button>
               <button
                 className="carousel-btn carousel-btn-next"
                 onClick={() => scroll(1)}
                 aria-label="Next paintings"
               >
-                â†’
+                {'\u2192'}
               </button>
             </div>
           </div>
