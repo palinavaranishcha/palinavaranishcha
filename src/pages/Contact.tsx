@@ -4,13 +4,10 @@ export default function Contact() {
       <section className="contact-page">
         <div className="container">
           <p className="section-label">Contact</p>
-          <h1>
-            Let's work<br />
-            together.
-          </h1>
+          <h1>Contact me</h1>
           <p className="contact-intro">
-            For exhibitions, collaborations, artwork enquiries or other questions, please get in
-            touch.
+            For any enquiries, commissions or collaborations, click the link below to drop me an
+            email and I'll get back to you as soon as I can. Thank you!
           </p>
 
           <div className="contact-details">
@@ -22,7 +19,7 @@ export default function Contact() {
             <div className="contact-item">
               <p className="contact-label">Instagram</p>
               <a
-                href="https://www.instagram.com/palinavaranishcha"
+                href="https://www.instagram.com/palina.sol"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contact-social"
@@ -43,7 +40,7 @@ export default function Contact() {
                   <circle cx="12" cy="12" r="4" />
                   <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
                 </svg>
-                @palinavaranishcha
+                @palina.sol
               </a>
             </div>
 

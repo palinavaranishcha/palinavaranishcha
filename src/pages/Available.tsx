@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { paintings } from '../data/paintings'
 
 const EMAIL = 'palinavaranishcha@gmail.com'
@@ -12,12 +12,11 @@ export default function Available() {
     e.preventDefault()
     const form = e.currentTarget
     const paintingId = (form.elements.namedItem('painting') as HTMLSelectElement).value
-    const name = (form.elements.namedItem('name') as HTMLInputElement).value
-    const message = (form.elements.namedItem('message') as HTMLTextAreaElement).value
+    const email = (form.elements.namedItem('email') as HTMLInputElement).value
     const painting = available.find(p => String(p.id) === paintingId)
     const subject = encodeURIComponent(`Artwork enquiry: ${painting?.title ?? paintingId}`)
     const body = encodeURIComponent(
-      `Hi Palina,\n\nI am interested in "${painting?.title ?? paintingId}"${painting?.dimensions ? ` (${painting.dimensions})` : ''}.\n\nName: ${name}\n\nMessage:\n${message}`
+      `Hi Palina,\n\nI am interested in "${painting?.title ?? paintingId}"${painting?.dimensions ? ` (${painting.dimensions})` : ''}.\n\nMy email: ${email}`
     )
     window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`
   }
@@ -36,9 +35,25 @@ export default function Available() {
           ) : (
             <>
               <p className="available-intro">
-                Select a painting and fill in your details. Clicking Send will open your mail
+                Select a painting and enter your email address. Clicking Send will open your mail
                 app with a pre-filled message.
               </p>
+              <ul className="available-list">
+                {available.map(p => (
+                  <li key={p.id}>
+                    <Link to={`/paintings/${p.id}`} className="available-list-thumb">
+                      <img src={p.src} alt={p.title} />
+                    </Link>
+                    <Link to={`/paintings/${p.id}`} className="available-list-title">
+                      {p.title}
+                    </Link>
+                    {p.dimensions && <span className="available-list-meta">{p.dimensions}</span>}
+                    <span className="available-badge">
+                      {p.price ? `Available for $${p.price}` : 'Available for commission'}
+                    </span>
+                  </li>
+                ))}
+              </ul>
               <form className="purchase-form" onSubmit={handleSubmit}>
                 <div className="form-field">
                   <label htmlFor="painting">Painting</label>
@@ -55,12 +70,8 @@ export default function Available() {
                   </select>
                 </div>
                 <div className="form-field">
-                  <label htmlFor="name">Your name</label>
-                  <input id="name" name="name" type="text" required />
-                </div>
-                <div className="form-field">
-                  <label htmlFor="message">Message (optional)</label>
-                  <textarea id="message" name="message" rows={5} />
+                  <label htmlFor="email">Your email</label>
+                  <input id="email" name="email" type="email" required />
                 </div>
                 <button type="submit" className="button">Send enquiry</button>
               </form>

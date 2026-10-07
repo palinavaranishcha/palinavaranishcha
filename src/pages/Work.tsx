@@ -38,7 +38,6 @@ export default function Work() {
                   </div>
                 </Link>
                 <div className="painting-info">
-                  <span className="painting-number">{painting.number}</span>
                   <h3>{painting.title}</h3>
                   <p>Painting</p>
                 </div>

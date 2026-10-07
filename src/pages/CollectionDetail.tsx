@@ -45,9 +45,11 @@ export default function CollectionDetail() {
                   </div>
                 </Link>
                 <div className="painting-info">
-                  <span className="painting-number">{painting.number}</span>
                   <h3>{painting.title}</h3>
                   <p>Painting{painting.dimensions ? ` · ${painting.dimensions}` : ''}</p>
+                  {painting.available && painting.price && (
+                    <p className="painting-price">${painting.price}</p>
+                  )}
                 </div>
                 {painting.available && (
                   <Link

@@ -34,10 +34,12 @@ export default function PaintingDetail() {
             </div>
 
             <div className="painting-detail-info">
-              <span className="painting-number">{painting.number}</span>
               <h1 className="painting-detail-title">{painting.title}</h1>
               {painting.dimensions && (
                 <p className="painting-dimensions">{painting.dimensions}</p>
+              )}
+              {painting.available && painting.price && (
+                <p className="painting-price">${painting.price}</p>
               )}
               {collection && (
                 <p className="painting-collection-link">

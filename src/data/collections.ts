@@ -9,7 +9,7 @@ export const collections: Collection[] = [
   {
     slug: 'first-collection',
     name: 'First Collection',
-    description: '',
+    description: 'Collection description',
     coverSrc: '/images/paintings/painting-1.jpg',
   },
 ]

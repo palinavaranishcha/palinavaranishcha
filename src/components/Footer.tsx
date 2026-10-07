@@ -14,7 +14,7 @@ export default function Footer() {
         </nav>
 
         <p className="copyright">
-          © {new Date().getFullYear()} Palina Varanishcha. All rights reserved.
+          © 2026 Bryliou. All rights reserved.
         </p>
       </div>
     </footer>
