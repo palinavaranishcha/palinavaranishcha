@@ -1,11 +1,11 @@
-import { NavLink } from 'react-router-dom'
+﻿import { NavLink } from 'react-router-dom'
 
 export default function Header() {
   return (
     <header className="site-header">
       <div className="container">
         <NavLink to="/" className="logo">
-          <img src="/images/paintings/logo.jpg" alt="Palina Varanishcha" />
+          <img src="images/paintings/logo.jpg" alt="Palina Varanishcha" />
         </NavLink>
 
         <nav className="main-navigation">

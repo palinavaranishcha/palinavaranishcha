@@ -1,8 +1,8 @@
-import { useEffect, useLayoutEffect, useRef } from 'react'
+﻿import { useEffect, useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { paintings } from '../data/paintings'
 
-const photo = { src: '/images/paintings/myphoto.jpg', alt: 'Palina Varanishcha, contemporary artist' }
+const photo = { src: 'images/paintings/myphoto.jpg', alt: 'Palina Varanishcha, contemporary artist' }
 
 export default function About() {
   const trackRef = useRef<HTMLDivElement>(null)
@@ -106,14 +106,14 @@ export default function About() {
                 onClick={() => scroll(-1)}
                 aria-label="Previous paintings"
               >
-                ←
+                â†
               </button>
               <button
                 className="carousel-btn carousel-btn-next"
                 onClick={() => scroll(1)}
                 aria-label="Next paintings"
               >
-                →
+                â†’
               </button>
             </div>
           </div>

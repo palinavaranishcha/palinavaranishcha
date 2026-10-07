@@ -1,4 +1,4 @@
-export interface Collection {
+﻿export interface Collection {
   slug: string
   name: string
   description: string
@@ -10,6 +10,6 @@ export const collections: Collection[] = [
     slug: 'first-collection',
     name: 'First Collection',
     description: 'Collection description',
-    coverSrc: '/images/paintings/painting-1.jpg',
+    coverSrc: 'images/paintings/painting-1.jpg',
   },
 ]
