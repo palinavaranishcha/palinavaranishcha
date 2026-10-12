@@ -5,7 +5,8 @@ export default function Header() {
     <header className="site-header">
       <div className="container">
         <NavLink to="/" className="logo">
-          <img src="images/paintings/logo.jpg" alt="Palina Varanishcha" />
+          <img src="images/paintings/logo.jpg" alt="" />
+          <span className="logo-name">Palina Varanishcha</span>
         </NavLink>
 
         <nav className="main-navigation">
