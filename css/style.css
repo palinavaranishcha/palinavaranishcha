@@ -49,6 +49,7 @@ a {
     z-index: 100;
     padding: 30px 0;
     background: #ffffff;
+    border-bottom: 1px solid #555555;
 }
 
 .site-header .container {
@@ -846,6 +847,8 @@ a {
     flex: 0 0 calc((100% - 32px) / 3);
     scroll-snap-align: start;
     line-height: 0;
+    transform: translateX(calc(var(--frac, 0) * -1px));
+    will-change: transform;
 }
 
 .photo-carousel-item img {

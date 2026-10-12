@@ -47,6 +47,57 @@ export default function About() {
     track.scrollBy({ left: direction * item.offsetWidth, behavior: 'smooth' })
   }
 
+  // Continuous auto-scroll at a constant speed; paused while the pointer or focus is on the
+  // carousel. Scroll snapping is disabled meanwhile, otherwise it fights the per-frame movement.
+  useEffect(() => {
+    const track = trackRef.current
+    const carousel = track?.parentElement
+    if (!track || !carousel) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const SPEED = 40 // px per second
+    let paused = false
+    let position = track.scrollLeft
+    let last = performance.now()
+    let frame = 0
+    track.style.scrollSnapType = 'none'
+    const tick = (now: number) => {
+      const elapsed = Math.min(now - last, 100)
+      last = now
+      // Adopt movement made by the user (arrows, swipe) instead of overwriting it.
+      if (Math.abs(track.scrollLeft - position) > 2) position = track.scrollLeft
+      if (!paused) {
+        position += (SPEED * elapsed) / 1000
+        const width = setWidth()
+        if (width && position > width * 1.5) position -= width
+        // scrollLeft only takes whole pixels; the sub-pixel remainder is applied as a transform
+        // (see .photo-carousel-item) so the motion stays smooth at low speeds.
+        const whole = Math.floor(position)
+        track.scrollLeft = whole
+        track.style.setProperty('--frac', String(position - whole))
+      }
+      frame = window.requestAnimationFrame(tick)
+    }
+    frame = window.requestAnimationFrame(tick)
+    const pause = () => { paused = true }
+    const resume = () => {
+      paused = false
+      position = track.scrollLeft + Number(track.style.getPropertyValue('--frac') || 0)
+    }
+    carousel.addEventListener('mouseenter', pause)
+    carousel.addEventListener('mouseleave', resume)
+    carousel.addEventListener('focusin', pause)
+    carousel.addEventListener('focusout', resume)
+    return () => {
+      window.cancelAnimationFrame(frame)
+      track.style.scrollSnapType = ''
+      track.style.removeProperty('--frac')
+      carousel.removeEventListener('mouseenter', pause)
+      carousel.removeEventListener('mouseleave', resume)
+      carousel.removeEventListener('focusin', pause)
+      carousel.removeEventListener('focusout', resume)
+    }
+  }, [])
+
   return (
     <main>
       <section className="about-page">
