@@ -256,6 +256,24 @@ a {
 
 .section-heading {
     margin-bottom: 70px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 8px 24px;
+}
+
+.section-heading .section-label {
+    flex-basis: 100%;
+}
+
+.section-link {
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 2px;
 }
 
 .section-heading h2 {

@@ -124,6 +124,9 @@ export default function Work() {
             <div className="section-heading">
               <p className="section-label">For sale</p>
               <h2>Available</h2>
+              <Link to="/available" className="section-link">
+                All available
+              </Link>
             </div>
 
             <div className="painting-grid">
@@ -155,6 +158,9 @@ export default function Work() {
           <div className="section-heading">
             <p className="section-label">Works</p>
             <h2>Collections</h2>
+            <Link to="/collections" className="section-link">
+              All collections
+            </Link>
           </div>
           <div className="collection-grid">
             {collections.map(col => (
