@@ -112,13 +112,8 @@ a {
 }
 
 
-/* ---------- Hero ---------- */
+/* ---------- Hero carousel ---------- */
 
-.hero {
-    padding: 70px 0 80px;
-}
-
-.hero-label,
 .section-label {
     margin: 0 0 25px;
     font-size: 12px;
@@ -127,20 +122,128 @@ a {
     color: #777777;
 }
 
-.hero h1 {
-    margin: 0;
-    font-size: clamp(60px, 10vw, 150px);
-    line-height: 0.9;
-    font-weight: 400;
-    letter-spacing: -0.06em;
+.hero-carousel {
+    --header-height: 85px;
+    position: relative;
+    height: calc(100vh - var(--header-height));
+    height: calc(100svh - var(--header-height));
+    min-height: 420px;
+    overflow: hidden;
+    background: #111111;
+    color: #ffffff;
 }
 
-.hero-description {
-    max-width: 550px;
-    margin: 30px 0 0;
-    font-size: 18px;
-    line-height: 1.7;
-    color: #555555;
+.hero-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.8s ease, visibility 0.8s;
+}
+
+.hero-slide.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.hero-slide img {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+}
+
+.hero-slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0) 45%);
+    pointer-events: none;
+}
+
+.hero-slide-info {
+    position: absolute;
+    left: 5%;
+    bottom: 70px;
+    z-index: 1;
+}
+
+.hero-slide-info h2 {
+    margin: 0 0 8px;
+    font-size: clamp(28px, 4vw, 48px);
+    line-height: 1.1;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+}
+
+.hero-slide-info p {
+    margin: 0;
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.hero-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    transform: translateY(-50%);
+    padding: 10px 14px;
+    border: none;
+    background: transparent;
+    font-family: inherit;
+    font-size: 48px;
+    line-height: 1;
+    color: rgba(255, 255, 255, 0.8);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.hero-arrow:hover {
+    color: #ffffff;
+}
+
+.hero-arrow-prev {
+    left: 2%;
+}
+
+.hero-arrow-next {
+    right: 2%;
+}
+
+.hero-counter {
+    position: absolute;
+    right: 5%;
+    bottom: 70px;
+    z-index: 2;
+    font-size: 14px;
+    letter-spacing: 0.18em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.hero-dots {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 24px;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.hero-dots button {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.45);
+    cursor: pointer;
+}
+
+.hero-dots button.active {
+    background: #ffffff;
 }
 
 
@@ -202,11 +305,16 @@ a {
     color: #888888;
 }
 
+.painting-info .painting-price {
+    font-size: 15px;
+    color: #111111;
+}
+
 
 /* ---------- About Preview ---------- */
 
 .about-preview {
-    padding: 160px 0;
+    padding: 120px 0;
     background: #f5f5f3;
 }
 
@@ -305,11 +413,12 @@ a {
 }
 
 .contact-preview h2 {
+    max-width: 800px;
     margin: 0 0 30px;
-    font-size: clamp(45px, 7vw, 90px);
-    line-height: 1;
+    font-size: clamp(40px, 6vw, 72px);
+    line-height: 1.1;
     font-weight: 400;
-    letter-spacing: -0.05em;
+    letter-spacing: -0.03em;
 }
 
 .contact-preview p:not(.section-label) {
@@ -331,6 +440,18 @@ a {
 .button:hover {
     background: #111111;
     color: #ffffff;
+}
+
+.button-solid {
+    padding: 18px 42px;
+    background: #111111;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+}
+
+.button-solid:hover {
+    background: #333333;
 }
 
 
@@ -620,6 +741,16 @@ a {
     color: #777777;
 }
 
+.collections-preview {
+    padding: 0 0 100px;
+}
+
+.collection-info h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 400;
+}
+
 .collection-description {
     max-width: 600px;
     margin-top: 20px;
@@ -758,10 +889,6 @@ a {
 
 @media (max-width: 900px) {
 
-    .hero {
-        padding: 100px 0 120px;
-    }
-
     .painting-grid {
         gap: 60px 25px;
     }
@@ -852,13 +979,24 @@ a {
 
     /* Mobile hero */
 
-    .hero {
-        padding: 80px 0 100px;
+    .hero-carousel {
+        --header-height: 66px;
     }
 
-    .hero-description {
-        margin-top: 35px;
-        font-size: 16px;
+    .hero-slide-info {
+        bottom: 60px;
+    }
+
+    .hero-counter {
+        bottom: 60px;
+    }
+
+    .hero-arrow {
+        font-size: 36px;
+    }
+
+    .collections-preview {
+        padding-bottom: 70px;
     }
 
     /* Mobile works */
