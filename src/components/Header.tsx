@@ -6,21 +6,21 @@ export default function Header() {
       <div className="container">
         <NavLink to="/" className="logo">
           <img src="images/paintings/logo.jpg" alt="" />
-          <span className="logo-name">Palina Varanishcha</span>
+          <span className="logo-name">Palina.Sol</span>
         </NavLink>
 
         <nav className="main-navigation">
           <NavLink to="/collections" className={({ isActive }) => isActive ? 'active' : ''}>
-            Collections
+            collections
           </NavLink>
           <NavLink to="/available" className={({ isActive }) => isActive ? 'active' : ''}>
-            Available
+            available
           </NavLink>
           <NavLink to="/about" className={({ isActive }) => isActive ? 'active' : ''}>
-            About
+            about
           </NavLink>
           <NavLink to="/contact" className={({ isActive }) => isActive ? 'active' : ''}>
-            Contact
+            contact
           </NavLink>
         </nav>
       </div>

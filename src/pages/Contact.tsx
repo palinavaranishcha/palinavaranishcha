@@ -1,9 +1,8 @@
 export default function Contact() {
   return (
-    <main>
+    <main className="page-fill">
       <section className="contact-page">
         <div className="container">
-          <p className="section-label">Contact</p>
           <h1>Contact me</h1>
           <p className="contact-intro">
             For any enquiries, commissions or collaborations, click the link below to drop me an
@@ -11,43 +10,49 @@ export default function Contact() {
           </p>
 
           <div className="contact-details">
-            <div className="contact-item">
-              <p className="contact-label">Email</p>
-              <a href="mailto:palinavarani@gmail.com">palinavarani@gmail.com</a>
-            </div>
-
-            <div className="contact-item">
-              <p className="contact-label">Instagram</p>
-              <a
-                href="https://www.instagram.com/palina.sol"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="contact-social"
+            <a
+              href="https://www.instagram.com/palina.sol"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-item"
+            >
+              <svg
+                className="contact-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                  <circle cx="12" cy="12" r="4" />
-                  <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
-                </svg>
-                @palina.sol
-              </a>
-            </div>
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <circle cx="12" cy="12" r="4.5" />
+                <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+              </svg>
+              <span>
+                <span className="contact-label">instagram</span>
+                <span className="contact-value">@palina.sol</span>
+              </span>
+            </a>
 
-            <div className="contact-item">
-              <p className="contact-label">Artist</p>
-              <p>Palina Varanishcha</p>
-            </div>
+            <a href="mailto:palinavarani@gmail.com" className="contact-item">
+              <svg
+                className="contact-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="12" fill="currentColor" />
+                <rect x="6" y="8" width="12" height="8.5" rx="1" fill="#ffffff" />
+                <path d="M6.5 8.6 12 12.6l5.5-4" fill="none" stroke="currentColor" strokeWidth="1.2" />
+              </svg>
+              <span>
+                <span className="contact-label">email</span>
+                <span className="contact-value contact-value--link">palinavarani@gmail.com</span>
+              </span>
+            </a>
           </div>
         </div>
       </section>

@@ -1,6 +1,9 @@
 import { Link, useParams } from 'react-router-dom'
-import { paintings } from '../data/paintings'
+import { paintings, isAvailable } from '../data/paintings'
 import { collections } from '../data/collections'
+
+const EMAIL = 'palinavarani@gmail.com'
+const INSTAGRAM = 'https://www.instagram.com/palina.sol'
 
 export default function PaintingDetail() {
   const { id } = useParams<{ id: string }>()
@@ -22,7 +25,7 @@ export default function PaintingDetail() {
   const collection = collections.find(c => c.slug === painting.collection)
 
   return (
-    <main>
+    <main className="painting-page">
       <section className="painting-detail">
         <div className="container">
           <div className="painting-detail-grid">
@@ -35,12 +38,19 @@ export default function PaintingDetail() {
 
             <div className="painting-detail-info">
               <h1 className="painting-detail-title">{painting.title}</h1>
-              {painting.dimensions && (
-                <p className="painting-dimensions">{painting.dimensions}</p>
+              {painting.colors && (
+                <p className="painting-detail-colors">{painting.colors}</p>
               )}
-              {painting.available && painting.price && (
-                <p className="painting-price">${painting.price}</p>
+              {isAvailable(painting) && painting.price && (
+                <p className="painting-detail-price">{painting.price} €</p>
               )}
+
+              <div className="painting-detail-specs">
+                {painting.medium && <p>{painting.medium}</p>}
+                {painting.dimensions && <p>{painting.dimensions}</p>}
+                {painting.year && <p>{painting.year}</p>}
+              </div>
+
               {collection && (
                 <p className="painting-collection-link">
                   <Link to={`/collections/${collection.slug}`} className="text-link">
@@ -51,12 +61,36 @@ export default function PaintingDetail() {
               {painting.description && (
                 <p className="painting-description">{painting.description}</p>
               )}
-              {painting.available ? (
-                <Link to={`/available?painting=${painting.id}`} className="button">
-                  Request to purchase
-                </Link>
+
+              <hr className="painting-detail-rule" />
+
+              {isAvailable(painting) ? (
+                <div className="painting-detail-inquire">
+                  <p className="painting-detail-note">
+                    for inquiries please use email or instagram direct message.
+                  </p>
+                  <a
+                    href={`mailto:${EMAIL}?subject=${encodeURIComponent(`Inquiry: ${painting.title}`)}`}
+                    className="painting-detail-link"
+                  >
+                    inquire via email
+                  </a>
+                  <a
+                    href={INSTAGRAM}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="painting-detail-link"
+                  >
+                    inquire via instagram
+                  </a>
+                  <p className="painting-detail-note">
+                    certificate of authenticity included.
+                    <br />
+                    shipping worldwide.
+                  </p>
+                </div>
               ) : (
-                <p className="painting-status">Not available for purchase</p>
+                <p className="painting-status">not available for purchase</p>
               )}
             </div>
           </div>

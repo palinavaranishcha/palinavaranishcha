@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { paintings, type Painting } from '../data/paintings'
+import { paintings, isAvailable, type Painting } from '../data/paintings'
 import { collections } from '../data/collections'
 
 const SLIDE_COUNT = 5
 const SLIDE_INTERVAL_MS = 5000
 
 function pickRandomAvailable(count: number): Painting[] {
-  const pool = paintings.filter(p => p.available)
+  const pool = paintings.filter(isAvailable)
   for (let i = pool.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
     ;[pool[i], pool[j]] = [pool[j], pool[i]]
@@ -16,7 +16,7 @@ function pickRandomAvailable(count: number): Painting[] {
 }
 
 function formatDetails(painting: Painting): string {
-  return [painting.dimensions, painting.price ? `$${painting.price}` : null]
+  return [painting.dimensions, painting.price ? `${painting.price} €` : null]
     .filter(Boolean)
     .join('  ·  ')
 }
@@ -94,9 +94,108 @@ function HeroCarousel({ slides }: { slides: Painting[] }) {
   )
 }
 
+function AvailableSlider({ works }: { works: Painting[] }) {
+  const trackRef = useRef<HTMLDivElement>(null)
+  const [current, setCurrent] = useState(0)
+  const [atStart, setAtStart] = useState(true)
+  const [atEnd, setAtEnd] = useState(false)
+  const [canScroll, setCanScroll] = useState(false)
+
+  // Distance between the left edges of two neighbouring cards.
+  function step() {
+    const items = trackRef.current?.children
+    if (!items || items.length < 2) return 0
+    return (items[1] as HTMLElement).offsetLeft - (items[0] as HTMLElement).offsetLeft
+  }
+
+  useEffect(() => {
+    const track = trackRef.current
+    if (!track) return
+    function update() {
+      if (!track) return
+      const max = track.scrollWidth - track.clientWidth
+      const s = step()
+      setCanScroll(max > 1)
+      setAtStart(track.scrollLeft <= 1)
+      setAtEnd(track.scrollLeft >= max - 1)
+      // Once the track can't scroll any further, the last card is the "current" one.
+      setCurrent(track.scrollLeft >= max - 1 ? works.length - 1 : s ? Math.round(track.scrollLeft / s) : 0)
+    }
+    update()
+    track.addEventListener('scroll', update, { passive: true })
+    window.addEventListener('resize', update)
+    return () => {
+      track.removeEventListener('scroll', update)
+      window.removeEventListener('resize', update)
+    }
+  }, [works.length])
+
+  function scroll(direction: 1 | -1) {
+    trackRef.current?.scrollBy({ left: direction * step(), behavior: 'smooth' })
+  }
+
+  return (
+    <section className="available-slider" aria-label="Available paintings">
+      <div className="container">
+        <div className="slider-heading">
+          <h2>Available</h2>
+        </div>
+
+        <div className="slider-track" ref={trackRef}>
+          {works.map(painting => (
+            <article key={painting.id} className="slider-card">
+              <Link to={`/paintings/${painting.id}`}>
+                <div className="slider-card-image">
+                  <img
+                    src={painting.src}
+                    alt={`${painting.title} — Painting by Palina Varanishcha`}
+                    loading="lazy"
+                  />
+                </div>
+                <h3>
+                  {painting.title}
+                  {painting.dimensions ? `, ${painting.dimensions}` : ''}
+                </h3>
+                {painting.price && <p>{painting.price} €</p>}
+              </Link>
+            </article>
+          ))}
+        </div>
+        <Link to="/available" className="section-link">
+          all available
+        </Link>
+        {canScroll && (
+          <div className="slider-controls">
+            <button
+              type="button"
+              aria-label="Previous painting"
+              onClick={() => scroll(-1)}
+              disabled={atStart}
+            >
+              ‹
+            </button>
+            <span>
+              {current + 1} / {works.length}
+            </span>
+            <button
+              type="button"
+              aria-label="Next painting"
+              onClick={() => scroll(1)}
+              disabled={atEnd}
+            >
+              ›
+            </button>
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}
+
 export default function Work() {
   const [heroSlides] = useState(() => pickRandomAvailable(SLIDE_COUNT))
-  const [availableWorks] = useState(() => pickRandomAvailable(SLIDE_COUNT))
+  // Newest first, like a "new in" shelf.
+  const availableWorks = paintings.filter(isAvailable).sort((a, b) => b.id - a.id)
 
   return (
     <main>
@@ -105,7 +204,6 @@ export default function Work() {
       <section className="about-preview">
         <div className="container">
           <div className="about-content">
-            <p className="section-label">About the artist</p>
             <h2>The story</h2>
             <p>
               Palina Varanishcha is a contemporary artist and painter. Her practice explores color,
@@ -118,49 +216,12 @@ export default function Work() {
         </div>
       </section>
 
-      {availableWorks.length > 0 && (
-        <section className="works" id="available">
-          <div className="container">
-            <div className="section-heading">
-              <p className="section-label">For sale</p>
-              <h2>Available</h2>
-              <Link to="/available" className="section-link">
-                All available
-              </Link>
-            </div>
-
-            <div className="painting-grid">
-              {availableWorks.map(painting => (
-                <article key={painting.id} className="painting">
-                  <Link to={`/paintings/${painting.id}`}>
-                    <div className="painting-image">
-                      <img
-                        src={painting.src}
-                        alt={`${painting.title} — Painting by Palina Varanishcha`}
-                        loading="lazy"
-                      />
-                    </div>
-                    <div className="painting-info">
-                      <h3>{painting.title}</h3>
-                      {painting.dimensions && <p>{painting.dimensions}</p>}
-                      {painting.price && <p className="painting-price">${painting.price}</p>}
-                    </div>
-                  </Link>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      {availableWorks.length > 0 && <AvailableSlider works={availableWorks} />}
 
       <section className="collections-preview">
         <div className="container">
           <div className="section-heading">
-            <p className="section-label">Works</p>
             <h2>Collections</h2>
-            <Link to="/collections" className="section-link">
-              All collections
-            </Link>
           </div>
           <div className="collection-grid">
             {collections.map(col => (
@@ -176,6 +237,9 @@ export default function Work() {
               </article>
             ))}
           </div>
+          <Link to="/collections" className="section-link">
+            all collections
+          </Link>
         </div>
       </section>
 
