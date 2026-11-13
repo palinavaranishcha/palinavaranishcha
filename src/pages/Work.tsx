@@ -139,6 +139,9 @@ function AvailableSlider({ works }: { works: Painting[] }) {
       <div className="container">
         <div className="slider-heading">
           <h2>Available</h2>
+          <Link to="/available" className="section-link">
+            all available
+          </Link>
         </div>
 
         <div className="slider-track" ref={trackRef}>
@@ -161,9 +164,6 @@ function AvailableSlider({ works }: { works: Painting[] }) {
             </article>
           ))}
         </div>
-        <Link to="/available" className="section-link">
-          all available
-        </Link>
         {canScroll && (
           <div className="slider-controls">
             <button
@@ -222,6 +222,9 @@ export default function Work() {
         <div className="container">
           <div className="section-heading">
             <h2>Collections</h2>
+            <Link to="/collections" className="section-link">
+              all collections
+            </Link>
           </div>
           <div className="collection-grid">
             {collections.map(col => (
@@ -237,9 +240,6 @@ export default function Work() {
               </article>
             ))}
           </div>
-          <Link to="/collections" className="section-link">
-            all collections
-          </Link>
         </div>
       </section>
 

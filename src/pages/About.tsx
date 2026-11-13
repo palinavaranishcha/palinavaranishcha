@@ -13,7 +13,7 @@ const photos = [
 export default function About() {
   return (
     <main>
-      <section className="page-hero">
+      <section className="page-hero page-hero--about">
         <div className="container">
           <h1>Behind the art</h1>
           <h2>Palina Varanishcha</h2>
